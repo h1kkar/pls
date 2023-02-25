@@ -1,45 +1,49 @@
 #!/bin/lua
+-- pls from h1kkar
 
 -- HELP FUNCTION --
 local function help()
-print ()
-print ("usage: pls [command]")
-print ()
-print ("available commands:")
-print ("    dunst               open config dunst")
-print ("    sh                  open config hilbish")
-print ("    wm                  open config herbstluftwm")
-print ("    nvim                open config nvim")
-print ("    picom               open config picom")
-print ("    qute                open config qutebrowser")
-print ("    term                open config kitty")
-print ("    marks               open config qutemarks")
-print ("    xres                open xresources")
-print ("    vim                 open config vim")
-print ()
-print ("    ping                ping output")
-print ("    xup                 xresources config reload")
-print ("    flashmnt            mount my flash drive")
-print ("    push                push git repo")
-print ("    calc                calculator")
-print ()
-print ("    pulse               restart pulseaudio")
-print ("    wal                 change wallpaper")
-print ("    edit                edit pls in editor")
-print ()
-print ("    pkg                 install package")
-print ("    del                 delete package")
-print ("    upd                 update system")
-print ("    untar               extract tar-archive")
-print ("    rem                 delete file")
-print ()
-print ("    xmod                chmod +x")
-print ()
-print ("    off                 poweroff")
-print ("    reboot              reboot")
-print ("    suspend             suspend")
-print ("    out                 logout of the user")
-print ()
+print [[
+
+usage: pls [command]")
+
+available commands:")
+  dunst               open config dunst
+  sh                  open config hilbish
+  wm                  open config herbstluftwm
+  nvim                open config nvim
+  picom               open config picom
+  qute                open config qutebrowser
+  term                open config kitty
+  marks               open config qutemarks
+  xres                open xresources
+  vim                 open config vim
+
+  ping                ping output
+  xup                 xresources config reload
+  flashmnt            mount my flash drive
+  push                push git repo
+  calc                calculator
+  xmod                chmod +x
+
+  pulse               restart pulseaudio
+  wal                 change wallpaper
+  edit                edit pls in editor
+
+  pkg                 install package
+  del                 delete package
+  upd                 update system
+  untar               extract tar-archive
+  rem                 delete file
+
+  off                 poweroff
+  reboot              reboot
+  suspend             suspend
+  out                 logout of the user
+
+  help                output this information
+  ver                 output pls version
+]]
 end
 
 -- LOCAL VARIABLE --
@@ -54,7 +58,10 @@ local conf = "$HOME/.config/"
 local home = "$HOME/"
 
 -- pls file
-local pls = home .. ".bin/pls"
+local pls = "/bin/pls"
+
+-- ver
+v = "0.1"
 
 -- PUSH FUNCTION --
 local function push()
@@ -170,6 +177,10 @@ elseif arg[1] == "push" then
 elseif arg[1] == "calc" then
   os.execute ("echo $((" .. arg[2] .. "))")
 
+  -- root files
+elseif arg[1] == "xmod" then
+  os.execute ("chmod +x " .. arg[2])
+
 -- pulseaudio reload
 elseif arg[1] == "pulse" then
   pulse()
@@ -206,10 +217,6 @@ elseif arg[1] == "untar" then
 elseif arg[1] == "rem" then
   os.execute ("rm -rf " .. arg[2])
 
--- root files
-elseif arg[1] == "xmod" then
-  os.execute ("chmod +x " .. arg[2])
-
 -- poweroff
 elseif arg[1] == "off" then
   os.execute ("poweroff")
@@ -226,10 +233,16 @@ elseif arg[1] == "suspend" then
 elseif arg[1] == "out" then
   os.execute ("pkill -9 -u $USER")
 
+-- ver
+elseif arg[1] == "ver" then
+  print ("pls v" .. v)
+
+-- nil val
 elseif arg[1] == nil then
   print ("\n" .. "no arg received")
   print ("\n" .. "read \"pls help\" for help\n")
 
+-- false val
 else
   print ("\n" .. arg[1] .. " is not pls command")
   print ("\n" .. "read \"pls help\" for help\n")
