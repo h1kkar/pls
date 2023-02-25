@@ -17,7 +17,6 @@ available commands:")
   term                open config kitty
   marks               open config qutemarks
   xres                open xresources
-  vim                 open config vim
 
   ping                ping output
   xup                 xresources config reload
@@ -153,13 +152,9 @@ elseif arg[1] == "marks" then
 elseif arg[1] == "xres" then
   os.execute (ed .. home .. ".Xresources")
 
--- open vim conf
-elseif arg[1] == "vim" then
-  os.execute (ed .. home .. ".vimrc")
-
 -- ping out
 elseif arg[1] == "ping" then
-  os.execute ("ping ya.ru -c 1")
+  os.execute ("ping -c 1 ya.ru")
 
 -- reload Xresources
 elseif arg[1] == "xup" then
