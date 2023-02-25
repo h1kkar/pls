@@ -1,0 +1,4 @@
+#/bin/bash
+# uninstall pls
+
+sudo rm -rf /bin/pls

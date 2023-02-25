@@ -1,0 +1,5 @@
+#!/bin/bash
+# install pls
+
+chmod +x pls
+sudo cp -i pls /bin/pls
