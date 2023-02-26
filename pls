@@ -20,7 +20,6 @@ available commands:
 
   ping                ping output
   xup                 xresources config reload
-  flashmnt            mount my flash drive
   push                push git repo
   calc                calculator
   xmod                chmod +x
@@ -34,14 +33,13 @@ available commands:
   del                 delete package
   upd                 update system
   untar               extract tar-archive
-  rem                 delete file
+  rm                 delete file
 
   off                 poweroff
   reboot              reboot
   suspend             suspend
   out                 logout of the user
 
-  help                output this information
   ver                 output pls version
 ]]
 end
@@ -60,26 +58,39 @@ local home = "$HOME/"
 -- pls file
 local pls = "/bin/pls"
 
+-- table
+local tbl = {}
+
 -- ver
-v = "0.1"
+v = "0.2"
+
+-- NO ARG RECEIVED FUNCTION --
+local function noarg()
+  if arg[2] == nil then
+    print ("no arg received")
+  end
+end
 
 -- PUSH FUNCTION --
 local function push()
-  -- add
-  print ("add files...")
-  os.execute ("sleep 1")
-  os.execute ("git add -A")
-  
-  -- commit
-  os.execute ("sleep 1")
+-- add
+  noarg()
   if arg[2] ~= nil then
+    print ("add files...")
+    os.execute ("git add .")
+  
+-- commit
     print ("commiting...")
-    os.execute ("git commit -m" .. arg[2])
-  else
-    print ("enter a commit message")
+    for i=2, #arg do
+      if arg[i] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
+    end
+    os.execute ("git commit -m \"" .. table.concat(tbl, " " .. "\""))
+
+-- push
+    os.execute ("git push origin master")
   end
-    -- push
-  os.execute ("git push origin master")
 end
 
 -- PULSEAUDIO RELOAD FUNCTION --
@@ -110,6 +121,8 @@ local function wal()
   print ("change wal")
   os.execute ("feh --bg-fill " .. home .. ".wp/" .. wal)
 end
+
+
 
 -- BRANCHING ARGUMENTS --
 
@@ -161,10 +174,6 @@ elseif arg[1] == "ping" then
 elseif arg[1] == "xup" then
   os.execute ("xrdb -merge $HOME/.Xresources")
 
--- mount my flash drive
-elseif arg[1] == "flashmnt" then
-  os.execute ("sudo mount dev/sdc1 /home/hikkar/.flash")
-
 -- git push
 elseif arg[1] == "push" then
   push()
@@ -175,7 +184,12 @@ elseif arg[1] == "calc" then
 
   -- root files
 elseif arg[1] == "xmod" then
-  os.execute ("chmod +x " .. arg[2])
+  for i=2, #arg do
+    if arg[i] ~= nil then
+      os.execute ("chmod +x " .. arg[i])
+    end
+  end
+  noarg()
 
 -- pulseaudio reload
 elseif arg[1] == "pulse" then
@@ -194,35 +208,66 @@ elseif arg[1] == "fetch" then
 
 -- install pkg
 elseif arg[1] == "pkg" then
-  os.execute ("yay -S " .. arg[2])
+  for i=2, #arg do
+-- table insert
+    if arg[i] ~= nil then table.insert(tbl, arg[i])
+    else break
+    end
+  end
+  noarg()
+  os.execute ("yay -S " .. table.concat(tbl, " "))
 
 -- delete pkg
 elseif arg[1] == "del" then
-  os.execute ("yay -Rcc " .. arg[2])
+  for i=2, #arg do
+-- table insert
+    if arg[i] ~= nil then table.insert(tbl, arg[i])
+      else break
+    end
+  end
+  noarg()
+  os.execute ("yay -Rcc " .. table.concat(tbl, " "))
 
 -- update sys or/and pkg
 elseif arg[1] == "upd" then
-  if arg[2] ~= nil then
-    os.execute ("yay -Syu " .. arg[2])
-  else
-    os.execute ("yay -Syu")
+  for i=2, #arg do
+-- table insert
+    if arg[i] ~= nil then table.insert(tbl, arg[i])
+    else break
+    end
   end
+  noarg()
+  os.execute ("yay -Syu " .. table.concat(tbl, " "))
 
 -- untar archive
 elseif arg[1] == "untar" then
-  os.execute ("tar -zxvf " .. arg[2])
+  for i=2, #arg do
+-- table insert
+    if arg[1] ~= nil then table.insert(tbl, arg[i])
+    else break
+    end
+  end
+  noarg()
+  os.execute ("tar -zxvf " .. table.concat(tbl, " "))
 
 -- delete files in dir
-elseif arg[1] == "rem" then
-  os.execute ("rm -rf " .. arg[2])
+elseif arg[1] == "rm" then
+  for i=2, #arg do
+-- table insert
+    if arg[1] ~= nil then table.insert(tbl, arg[i])
+    else break
+    end
+  end
+  noarg()
+  os.execute ("rm -rf " .. table.concat(tbl, " "))
 
 -- poweroff
 elseif arg[1] == "off" then
-  os.execute ("poweroff")
+  os.execute ("systemctl poweroff")
 
 -- reboot
 elseif arg[1] == "reboot" then
-  os.execute ("reboot")
+  os.execute ("systemctl reboot")
 
 -- suspend
 elseif arg[1] == "suspend" then
@@ -238,11 +283,11 @@ elseif arg[1] == "ver" then
 
 -- nil val
 elseif arg[1] == nil then
-  print ("\n" .. "no arg received")
-  print ("\n" .. "read \"pls help\" for help\n")
+  print ("no arg received")
+  print ("read \"pls help\" for help")
 
 -- false val
 else
-  print ("\n" .. arg[1] .. " is not pls command")
-  print ("\n" .. "read \"pls help\" for help\n")
+  print (arg[1] .. " is not pls command")
+  print ("read \"pls help\" for help")
 end
