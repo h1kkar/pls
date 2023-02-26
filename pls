@@ -28,6 +28,7 @@ available commands:")
   pulse               restart pulseaudio
   wal                 change wallpaper
   edit                edit pls in editor
+  fetch               output fetch
 
   pkg                 install package
   del                 delete package
@@ -187,6 +188,9 @@ elseif arg[1] == "wal" then
 -- edit pls
 elseif arg[1] == "edit" then
   os.execute (ed .. pls)
+
+elseif arg[1] == "fetch" then
+  os.execute ("fetch -c $HOME/.config/fetch/conf/cat")
 
 -- install pkg
 elseif arg[1] == "pkg" then
