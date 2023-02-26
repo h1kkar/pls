@@ -62,7 +62,7 @@ local pls = "/bin/pls"
 local tbl = {}
 
 -- ver
-v = "0.2"
+local v = "0.2"
 
 -- NO ARG RECEIVED FUNCTION --
 local function noarg()
@@ -78,7 +78,7 @@ local function push()
   if arg[2] ~= nil then
     print ("add files...")
     os.execute ("git add .")
-  
+
 -- commit
     print ("commiting...")
     for i=2, #arg do
@@ -86,7 +86,7 @@ local function push()
       else break
       end
     end
-    os.execute ("git commit -m \"" .. table.concat(tbl, " " .. "\""))
+    os.execute ("git commit -m \"" .. table.concat(tbl, " " ) .. "\"")
 
 -- push
     os.execute ("git push origin master")
