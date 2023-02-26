@@ -5,9 +5,9 @@
 local function help()
 print [[
 
-usage: pls [command]")
+usage: pls [command]
 
-available commands:")
+available commands:
   dunst               open config dunst
   sh                  open config hilbish
   wm                  open config herbstluftwm
