@@ -17,17 +17,20 @@ available commands:
   term                open config kitty
   marks               open config qutemarks
   xres                open xresources
+  open                open file in dir
 
   ping                ping output
   xup                 xresources config reload
   push                push git repo
   calc                calculator
   xmod                chmod +x
+  echo                output text to a file
 
   pulse               restart pulseaudio
   wal                 change wallpaper
   edit                edit pls in editor
   fetch               output fetch
+  scr                 take a screenshot
 
   pkg                 install package
   del                 delete package
@@ -47,7 +50,7 @@ end
 -- LOCAL VARIABLE --
 
 -- editor
-local ed = "nvim "
+local ed = "vscodium "
 
 -- conf dir
 local conf = "$HOME/.config/"
@@ -61,8 +64,11 @@ local pls = "/bin/pls"
 -- table
 local tbl = {}
 
+-- count arg
+local c = #arg
+
 -- ver
-local v = "0.2"
+local v = "0.3"
 
 -- NO ARG RECEIVED FUNCTION --
 local function noarg()
@@ -81,7 +87,7 @@ local function push()
 
 -- commit
     print ("commiting...")
-    for i=2, #arg do
+    for i=2, c do
       if arg[i] ~= nil then table.insert(tbl, arg[i])
       else break
       end
@@ -99,7 +105,7 @@ local function pulse()
   print ("killing pulseaudio")
   os.execute ("sleep 1")
   os.execute ("pulseaudio --kill")
-  
+
   -- start
   print ("starting pulseaudio")
   os.execute ("sleep 2")
@@ -112,11 +118,11 @@ end
 local function wal()
   -- output img in dir
   os.execute ("ls $HOME/.wp")
-  
+
   -- input name img
   print ("\nname: ")
   wal = io.read()
-  
+
   -- change wal
   print ("change wal")
   os.execute ("feh --bg-fill " .. home .. ".wp/" .. wal)
@@ -166,6 +172,12 @@ elseif arg[1] == "marks" then
 elseif arg[1] == "xres" then
   os.execute (ed .. home .. ".Xresources")
 
+-- open
+elseif arg[1] == "open" then
+  if arg[2] ~= nil then
+    os.execute (ed .. arg[2])
+  end
+
 -- ping out
 elseif arg[1] == "ping" then
   os.execute ("ping -c 1 ya.ru")
@@ -182,14 +194,24 @@ elseif arg[1] == "push" then
 elseif arg[1] == "calc" then
   os.execute ("echo $((" .. arg[2] .. "))")
 
-  -- root files
+-- root files
 elseif arg[1] == "xmod" then
-  for i=2, #arg do
+  for i=2, c do
     if arg[i] ~= nil then
       os.execute ("chmod +x " .. arg[i])
     end
   end
   noarg()
+
+-- echo
+elseif arg[1] == "echo" then
+  d = c - 1
+  for i=2, d do
+    if arg[i] ~= nil then table.insert(tbl, arg[i])
+    else break
+    end
+  end
+  os.execute ("echo \'" .. table.concat(tbl, " ") .. "\' >>" .. arg[c])
 
 -- pulseaudio reload
 elseif arg[1] == "pulse" then
@@ -203,8 +225,20 @@ elseif arg[1] == "wal" then
 elseif arg[1] == "edit" then
   os.execute (ed .. pls)
 
+-- fetch
 elseif arg[1] == "fetch" then
   os.execute ("fetch -c $HOME/.config/fetch/conf/cat")
+
+-- scr
+elseif arg[1] == "scr" then
+  if arg[2] == nil then
+    os.execute ("scrot $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
+  elseif arg[2] == "d" then
+    os.execute ("scrot -d 5 $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
+  elseif arg[2] == "s" then
+    os.execute ("scrot -s $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
+  else print (arg[2] .. "is not a valid arg")
+  end
 
 -- install pkg
 elseif arg[1] == "pkg" then
