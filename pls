@@ -14,7 +14,7 @@ available commands:
   nvim                open config nvim
   picom               open config picom
   qute                open config qutebrowser
-  term                open config kitty
+  term                open config alacritty
   marks               open config qutemarks
   xres                open xresources
   open                open file in dir
@@ -162,7 +162,7 @@ elseif arg[1] == "qute" then
 
 -- open kitty conf
 elseif arg[1] == "term" then
-  os.execute (ed .. conf .. "kitty/kitty.conf")
+  os.execute (ed .. conf .. "alacritty/alacritty.yml")
 
 -- open qutemarks conf
 elseif arg[1] == "marks" then
