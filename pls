@@ -242,58 +242,69 @@ elseif arg[1] == "scr" then
 
 -- install pkg
 elseif arg[1] == "pkg" then
-  for i=2, #arg do
+  if arg[2] ~= nil then
+    for i=2, #arg do
 -- table insert
-    if arg[i] ~= nil then table.insert(tbl, arg[i])
-    else break
+      if arg[i] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
     end
+    os.execute ("yay -S " .. table.concat(tbl, " "))
+  else noarg()
   end
-  noarg()
-  os.execute ("yay -S " .. table.concat(tbl, " "))
+  
 
 -- delete pkg
 elseif arg[1] == "del" then
-  for i=2, #arg do
+  if arg[2] ~= nil then
+    for i=2, #arg do
 -- table insert
-    if arg[i] ~= nil then table.insert(tbl, arg[i])
-      else break
+     if arg[i] ~= nil then table.insert(tbl, arg[i])
+       else break
+     end
     end
+    os.execute ("yay -Rcc " .. table.concat(tbl, " "))
+  else noarg()
   end
-  noarg()
-  os.execute ("yay -Rcc " .. table.concat(tbl, " "))
 
 -- update sys or/and pkg
 elseif arg[1] == "upd" then
-  for i=2, #arg do
+  if arg[2] ~= nil then
+    for i=2, #arg do
 -- table insert
-    if arg[i] ~= nil then table.insert(tbl, arg[i])
-    else break
+      if arg[i] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
     end
+    os.execute ("yay -Syu " .. table.concat(tbl, " "))
+  else os.execute ("yay -Syu")
   end
-  noarg()
-  os.execute ("yay -Syu " .. table.concat(tbl, " "))
 
 -- untar archive
 elseif arg[1] == "untar" then
-  for i=2, #arg do
+  if arg[2] ~= nil then
+    for i=2, #arg do
 -- table insert
-    if arg[1] ~= nil then table.insert(tbl, arg[i])
-    else break
+      if arg[1] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
     end
+    os.execute ("tar -zxvf " .. table.concat(tbl, " "))
+  else noarg()
   end
-  noarg()
-  os.execute ("tar -zxvf " .. table.concat(tbl, " "))
 
 -- delete files in dir
 elseif arg[1] == "rm" then
-  for i=2, #arg do
+  if arg[2] ~= nil then
+    for i=2, #arg do
 -- table insert
-    if arg[1] ~= nil then table.insert(tbl, arg[i])
-    else break
+      if arg[1] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
     end
+    os.execute ("rm -rf " .. table.concat(tbl, " "))
+  else noarg()
   end
-  noarg()
-  os.execute ("rm -rf " .. table.concat(tbl, " "))
 
 -- poweroff
 elseif arg[1] == "off" then
