@@ -36,7 +36,8 @@ available commands:
   del                 delete package
   upd                 update system
   untar               extract tar-archive
-  rm                 delete file
+  rm                  delete file
+  neko                cat analogue
 
   off                 poweroff
   reboot              reboot
@@ -68,7 +69,7 @@ local tbl = {}
 local c = #arg
 
 -- ver
-local v = "0.3"
+local v = "0.4"
 
 -- NO ARG RECEIVED FUNCTION --
 local function noarg()
@@ -303,6 +304,13 @@ elseif arg[1] == "rm" then
       end
     end
     os.execute ("rm -rf " .. table.concat(tbl, " "))
+  else noarg()
+  end
+
+-- neko
+elseif arg[1] == "neko" then
+  if arg[3] ~= nil then
+    os.execute ('grep ' .. arg[3] .. " " .. arg[2] .. " | moar")
   else noarg()
   end
 
