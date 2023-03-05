@@ -220,7 +220,7 @@ elseif arg[1] == "xmod" then
 
 -- echo
 elseif arg[1] == "echo" then
-  d = c - 1
+  local d = c - 1
   for i=2, d do
     if arg[i] ~= nil then table.insert(tbl, arg[i])
     else break
