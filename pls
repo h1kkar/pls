@@ -69,12 +69,26 @@ local tbl = {}
 local c = #arg
 
 -- ver
-local v = "0.4"
+local v = "0.5"
 
 -- NO ARG RECEIVED FUNCTION --
 local function noarg()
   if arg[2] == nil then
     print ("no arg received")
+  end
+end
+
+-- check function
+local function check(cmd)
+  if arg[2] ~= nil then
+    for i = 2, #arg do
+-- table imsert
+      if arg[i] ~= nil then table.insert(tbl, arg[i])
+      else break
+      end
+    end
+    os.execute(cmd .. table.concat(tbl, " "))
+  else noarg()
   end
 end
 
@@ -243,30 +257,12 @@ elseif arg[1] == "scr" then
 
 -- install pkg
 elseif arg[1] == "pkg" then
-  if arg[2] ~= nil then
-    for i=2, #arg do
--- table insert
-      if arg[i] ~= nil then table.insert(tbl, arg[i])
-      else break
-      end
-    end
-    os.execute ("yay -S " .. table.concat(tbl, " "))
-  else noarg()
-  end
+  check("yay -S ")
   
 
 -- delete pkg
 elseif arg[1] == "del" then
-  if arg[2] ~= nil then
-    for i=2, #arg do
--- table insert
-     if arg[i] ~= nil then table.insert(tbl, arg[i])
-       else break
-     end
-    end
-    os.execute ("yay -Rcc " .. table.concat(tbl, " "))
-  else noarg()
-  end
+  check("yay -Rcc ")
 
 -- update sys or/and pkg
 elseif arg[1] == "upd" then
@@ -283,29 +279,11 @@ elseif arg[1] == "upd" then
 
 -- untar archive
 elseif arg[1] == "untar" then
-  if arg[2] ~= nil then
-    for i=2, #arg do
--- table insert
-      if arg[1] ~= nil then table.insert(tbl, arg[i])
-      else break
-      end
-    end
-    os.execute ("tar -zxvf " .. table.concat(tbl, " "))
-  else noarg()
-  end
+  check("tar -zxvf ")
 
 -- delete files in dir
 elseif arg[1] == "rm" then
-  if arg[2] ~= nil then
-    for i=2, #arg do
--- table insert
-      if arg[1] ~= nil then table.insert(tbl, arg[i])
-      else break
-      end
-    end
-    os.execute ("rm -rf " .. table.concat(tbl, " "))
-  else noarg()
-  end
+  check("rm -rf ")
 
 -- neko
 elseif arg[1] == "neko" then
