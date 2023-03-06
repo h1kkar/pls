@@ -236,10 +236,6 @@ elseif arg[1] == "pulse" then
 elseif arg[1] == "wal" then
   wal()
 
--- edit pls
-elseif arg[1] == "edit" then
-  os.execute (ed .. pls)
-
 -- fetch
 elseif arg[1] == "fetch" then
   os.execute ("fetch -c $HOME/.config/fetch/conf/cat")
