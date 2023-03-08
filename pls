@@ -9,8 +9,8 @@ usage: pls [command]
 
 available commands:
   dunst               open config dunst
-  sh                  open config hilbish
-  wm                  open config herbstluftwm
+  sh                  open config fish
+  wm                  open config hyprland
   nvim                open config nvim
   picom               open config picom
   qute                open config qutebrowser
@@ -26,7 +26,7 @@ available commands:
   xmod                chmod +x
   echo                output text to a file
 
-  pulse               restart pulseaudio
+  sound               start easyeffects
   wal                 change wallpaper
   edit                edit pls in editor
   fetch               output fetch
@@ -69,7 +69,7 @@ local tbl = {}
 local c = #arg
 
 -- ver
-local v = "0.5"
+local v = "0.6"
 
 -- NO ARG RECEIVED FUNCTION --
 local function noarg()
@@ -115,6 +115,7 @@ local function push()
 end
 
 -- PULSEAUDIO RELOAD FUNCTION --
+--[[
 local function pulse()
   -- kill
   print ("killing pulseaudio")
@@ -128,7 +129,7 @@ local function pulse()
 
   os.execute ("sleep 1")
 end
-
+]]--
 -- CHANGE WALLPAPER FUNCTION --
 local function wal()
   -- output img in dir
@@ -157,11 +158,11 @@ elseif arg[1] == "dunst" then
 
 -- open hilbish conf
 elseif arg[1] == "sh" then
-  os.execute (ed .. conf .."hilbish/init.lua")
+  os.execute (ed .. conf .."fish/config.fish")
 
 -- open herbstluftwm conf
 elseif arg[1] == "wm" then
-  os.execute (ed .. conf .. "herbstluftwm/autostart")
+  os.execute (ed .. conf .. "hypr/hyprland.conf")
 
 -- open neovim conf
 elseif arg[1] == "nvim" then
@@ -229,8 +230,8 @@ elseif arg[1] == "echo" then
   os.execute ("echo \'" .. table.concat(tbl, " ") .. "\' >>" .. arg[c])
 
 -- pulseaudio reload
-elseif arg[1] == "pulse" then
-  pulse()
+elseif arg[1] == "sound" then
+  os.execute ("easyeffects")
 
 -- change wallpaper
 elseif arg[1] == "wal" then
