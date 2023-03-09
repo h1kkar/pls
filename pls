@@ -244,12 +244,8 @@ elseif arg[1] == "fetch" then
 -- scr
 elseif arg[1] == "scr" then
   if arg[2] == nil then
-    os.execute ("scrot $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
-  elseif arg[2] == "d" then
-    os.execute ("scrot -d 5 $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
-  elseif arg[2] == "s" then
-    os.execute ("scrot -s $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
-  else print (arg[2] .. "is not a valid arg")
+    os.execute ("grim $HOME/img/scr.png && notify-send \'Screenshot taken!\'")
+  else noarg()
   end
 
 -- install pkg
