@@ -3,31 +3,38 @@ use std::io::{
     prelude::*
 };
 
-pub fn calculator() {
-    
-    //println!("{}", msg.trim());
-
-    loop {
-        print!("❯ ");
-        io::stdout().flush().ok().expect("err");
-
-        let mut msg: String = String::new();
-        let _ = io::stdin().read_line(&mut msg);
-        let msg = String::from(msg.trim());
-
-        for i in vec![String::from("exit"), String::from("quit"), String::from("q"), String::from(":q")] {
-            if msg == i {
-                println!("bye-bye");
-                return;
-            }
-        }
-
-        let (pos, act) = pos(&msg);
+pub fn calculator(arg: &String) {
+    if arg != "" {
+        let (pos, act) = pos(arg);
 
         if pos == 0 {
-            println!("error")
+            println!("error!")
         } else {
-            println!("= {}\n", calc(&msg, pos, act));
+            println!("{}={}", arg, calc(arg, pos, act))
+        }
+    } else {
+        loop {
+            print!("❯ ");
+            io::stdout().flush().ok().expect("err");
+
+            let mut msg: String = String::new();
+            let _ = io::stdin().read_line(&mut msg);
+            let msg = String::from(msg.trim());
+
+            for i in vec![String::from("exit"), String::from("quit"), String::from("q"), String::from(":q")] {
+                if msg == i {
+                    println!("bye-bye");
+                    return;
+                }
+            }
+
+            let (pos, act) = pos(&msg);
+
+            if pos == 0 {
+                println!("error")
+            } else {
+                println!("= {}\n", calc(&msg, pos, act));
+            }
         }
     }
 }
@@ -35,12 +42,6 @@ pub fn calculator() {
 fn pos<'a>(msg: &String) -> (usize, &str) {
     let bytes = msg.as_bytes();
     for (i, &item) in bytes.iter().enumerate() {
-            /*match item {
-                b'+' | b'-' | b'*' | b'/' => {
-                    return i;
-                },
-                _ => return i,
-            }*/
             if item == b'+' {
                 return (i+1, "+");
             } else if item == b'-' {
