@@ -1,0 +1,17 @@
+complete -f -c pls -n __fish_use_subcommand -a hlp -d "help info"
+complete -f -c pls -n __fish_use_subcommand -a sh -d "shell config"
+complete -f -c pls -n __fish_use_subcommand -a wm -d "wm config"
+complete -f -c pls -n __fish_use_subcommand -a tty -d "term config"
+complete -f -c pls -n __fish_use_subcommand -a opn -d "open files"
+complete -f -c pls -n __fish_use_subcommand -a rm -d "delete"
+complete -f -c pls -n __fish_use_subcommand -a mv -d "move and rename"
+complete -f -c pls -n __fish_use_subcommand -a cp -d "copy"
+complete -f -c pls -n __fish_use_subcommand -a calc -d "calculator"
+complete -f -c pls -n __fish_use_subcommand -a off -d "poweroff"
+complete -f -c pls -n __fish_use_subcommand -a rb -d "reboot"
+complete -f -c pls -n __fish_use_subcommand -a sleep -d "suspend"
+complete -f -c pls -n __fish_use_subcommand -a out -d "logout"
+complete -f -c pls -n __fish_use_subcommand -a ver -d "version"
+
+complete -f -c pls -n "__fish_seen_subcommand_from hlp sh wm tty calc off wb sleep out ver"
+complete -c pls -n "__fish_seen_subcommand_from opn rm mv cp" -F
