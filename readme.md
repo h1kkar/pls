@@ -1,6 +1,6 @@
 <div align="center">
     <h1>pls</h1>
-    <h3>🌸 <b>pls this is a little helper in your work</h3>
+    <h3>🌸 <strong>pls this is a little helper in your work</strong></h3>
 </div>
 
 ### screenshot
