@@ -35,10 +35,10 @@ $ rm /bin/pls
 To receive reference information, contact [usage.md](https://github.com/h1kkar/pls/blob/main/usage.md)
 
 #### todo
-- more fixes and optimizations (4 fixes)
-- implement give permissions for files
-- ~~implement smart deletion of folders with files~~
-- ~~implement smart move/rename~~
-- ~~add completion for bash, fish~~
-- ~~redesign code structure~~
-- ~~calculator takes expressions from arguments~~
+- [ ] more fixes and optimizations (4 fixes)
+- [ ] implement give permissions for files
+- [x] implement smart deletion of folders with files
+- [x] implement smart move/rename
+- [x] add completion for bash, fish
+- [x] redesign code structure
+- [x] calculator takes expressions from arguments
