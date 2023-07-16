@@ -1,9 +1,7 @@
+const VERSION: &str = "1.1.0";
 pub mod lib {
     pub mod main {
-        use std::{
-            env::args,
-            process::Command
-        };
+        use std::env::args;
         use crate::lib::{
             help::usage,
             opn::{
@@ -75,7 +73,7 @@ pub mod lib {
                         },
 
                         // delete files and dirs
-                        "rm" | "del" | "remove" | "delete" | "-d" => delete(&args[2..]),
+                        "remove" | "rm" | "delete" | "del" | "-d" => delete(&args[2..]),
 
                         // rename files and dirs
                         "rename" | "move" | "mv" | "-r" => rename(&args[2], &args[3]),
@@ -100,17 +98,10 @@ pub mod lib {
 
                         // version
                         "ver" | "-v" => {
-                            if args.len()-1 == 2 {
-                                match Command::new(&args[2][..])
-                                    .arg("--version")
-                                    .spawn() {
-                                        Ok(_) => return,
-                                        Err(error) => eprintln!("{}" ,error),
-                                    }
-                            } else if args.len()-1 > 1 {
+                            if args.len()-1 > 1 {
                                 more_arg()
                             } else {
-                                println!("pls v1.0.0")
+                                println!("pls v{}", crate::VERSION)
                             }
                         },
 

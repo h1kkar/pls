@@ -51,6 +51,7 @@ fn pos<'a>(msg: &String) -> (usize, &str) {
                 return (i+1, "/");
             };
         }
+        
     return (0, "");
 }
 
