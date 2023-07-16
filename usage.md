@@ -82,6 +82,9 @@ $ pls calc
 
 ❯ exit
 bye-bye
+
+$ pls calc 25+44
+25+44=69
 ```
 
 ##### to shutdown, restart, put to sleep, exit the current session, write:
@@ -95,5 +98,5 @@ $ pls out
 ##### to display the version of pls or any other program (if it supports the `--version` flag) write:
 ```
 $ pls ver
-pls v1.1.0
+pls v1.2.0
 ```

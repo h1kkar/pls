@@ -2,7 +2,7 @@
 name = "pls"
 description = "little assistant for you"
 authors = ["Dmitrij Sinicin"]
-version = "1.0.0"
+version = "1.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
