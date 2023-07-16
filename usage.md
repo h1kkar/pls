@@ -40,29 +40,38 @@ $ pls tty
 nvim open wezterm.lua
 
 # to open files any in dir
-$ pls open Cargo.toml
+$ pls opn Cargo.toml
 nvim open Cargo.toml
 ```
 
-##### to delete any number of files and *empty* dirs write:
+##### to delete any number of files and dirs write:
 ```
-$ pls rm
-dir test is delete
-file test1 is delete
-file test2 is delete
-dir test3 is delete
+$ pls rm test test2 test3
+you really want to remove the non empty test dir?
+yes or Enter for removal: yes
+file test1 in dir test deleted
+dir test deleted
+dir test2 deleted
+file test3 deleted
 ```
 
-##### to move ( or rename ) a file or dir specify the starting file, location and name of the target file or dir write:
+##### to move or rename a file or dir specify the starting file, location and name of the target file or dir write:
 ```
+# rename
 $ pls mv test test1
 test rename to test1
+
+# move
+$ pls mv test test1/test
+test move to test1/test
 ```
 
 ##### to copy a file or dir specify the source file, location and name of the target file or dir write:
 ```
 $ pls cp test test1
 test copy to test1
+
+
 ```
 
 ##### to run the calculator write:
@@ -86,8 +95,5 @@ $ pls out
 ##### to display the version of pls or any other program (if it supports the `--version` flag) write:
 ```
 $ pls ver
-pls v1.0.0
-
-$ pls ver alacritty
-alacritty 0.12.1 (5fdfd47f)
+pls v1.1.0
 ```
