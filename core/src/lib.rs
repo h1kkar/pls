@@ -1,18 +1,26 @@
-const VERSION: &str = "1.1.0";
+const VERSION: &str = "1.2.0";
+
 pub mod lib {
     pub mod main {
         use std::env::args;
         use crate::lib::{
-            help::usage,
+            hlp::usage,
             opn::{
                 self,
                 ch,
             },
-            rm::delete,
-            mv::rename,
-            cp::copy,
+            files::{
+                rm::delete,
+                mv::rename,
+                cp::copy,
+            },
             calc::calculator,
-            power,
+            power::{
+                off,
+                rb,
+                sleep,
+                out,
+            },
         };
 
         pub fn start() {
@@ -82,19 +90,26 @@ pub mod lib {
                         "copy" | "cp" | "-c" => copy(&args[2], &args[3]),
 
                         // calc
-                        "calc" => calculator(),
+                        "calc" => {
+                            match args.len()-1 {
+                                1 => calculator(&String::from("")),
+                                2 => calculator(&args[2]),
+                                _ => more_arg(),
+                            }
+                        },
+                        //calculator(),
 
                         // poweroff
-                        "poweroff" | "off"  => power::off(),
+                        "poweroff" | "off"  => off::poweroff(),
 
                         // reboot
-                        "reboot" |"reb" | "rb" => power::reboot(),
+                        "reboot" |"reb" | "rb" => rb::reboot(),
 
                         // logout
-                        "logout" | "out" => power::out(),
+                        "logout" | "out" => out::logout(),
 
                         // sleep
-                        "suspend" | "sus" | "sleep" => power::suspend(),
+                        "suspend" | "sus" | "sleep" => sleep::suspend(),
 
                         // version
                         "ver" | "-v" => {
@@ -121,12 +136,19 @@ pub mod lib {
         }
     }
 
-    mod help;
+    mod hlp;
 
     mod opn;
-    mod rm;
-    mod mv;
-    mod cp;
+    mod files {
+        pub mod rm;
+        pub mod mv;
+        pub mod cp;
+    }
     mod calc;
-    mod power;
+    mod power {
+        pub mod off;
+        pub mod rb;
+        pub mod sleep;
+        pub mod out;
+    }
 }
